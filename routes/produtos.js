@@ -129,16 +129,14 @@ router.patch('/', (req, res, nex) => {
 });
 
 // exclui um produto
-router.delete('/:id_produto', (req, res, nex) => {
-
-    const id = req.params.id_produto;
+router.delete('/', (req, res, nex) => {
 
     mysql.getConnection((error, conn) => {
 
         if (error) return res.status(500).send({ error: error });
 
         conn.query('DELETE FROM produtos where id_produto = ?',
-            [id],
+            [req.body.id_produto],
             (error, resultado, field) => {
                 conn.release();
                 if (error) {
